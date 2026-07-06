@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages-${{ github.workflow }}-${{ github.ref }}
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -29,11 +29,11 @@ jobs:
 
       - name: Validate site files
         run: |
-          test -d assets
-          test -f index.html
-          test -f script.js
-          test -f style.css
-          test -f .nojekyll
+          [ -d assets ] || { echo "Error: assets directory not found"; exit 1; }
+          [ -f index.html ] || { echo "Error: index.html not found"; exit 1; }
+          [ -f script.js ] || { echo "Error: script.js not found"; exit 1; }
+          [ -f style.css ] || { echo "Error: style.css not found"; exit 1; }
+          [ -f .nojekyll ] || { echo "Error: .nojekyll not found"; exit 1; }
 
       - name: Prepare site artifact
         run: |
