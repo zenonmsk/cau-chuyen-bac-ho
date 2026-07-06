@@ -2,15 +2,19 @@
 const audio = document.getElementById("audio");
 const toggleBtn = document.getElementById("toggleAudio");
 const playBtn = document.getElementById("playBtn");
+const loader = document.getElementById("loader");
+const startStoryBtn = document.getElementById("startStoryBtn");
 const lightbox = document.getElementById("imageLightbox");
 const lightboxImage = document.getElementById("lightboxImage");
 const closeLightboxBtn = document.getElementById("closeLightbox");
 const lightboxStage = document.getElementById("lightboxStage");
+const loaderStatus = document.querySelector(".loader-status");
 
 let isPlaying = false;
 let zoomScale = 1;
 let baseImageWidth = 0;
 let baseImageHeight = 0;
+let isLoaderReady = false;
 
 const MIN_ZOOM = 1;
 const MAX_ZOOM = 4;
@@ -109,21 +113,30 @@ function waitForAudio() {
 
 function showPageWhenReady() {
   Promise.all([waitForImages(), waitForAudio()]).finally(() => {
-    document.body.classList.remove("is-loading");
-    reveal();
-
-    // Tu dong phat audio ngay khi preload xong.
-    audio.play()
-      .then(() => {
-        isPlaying = true;
-        toggleBtn.innerText = "⏸";
-      })
-      .catch(() => {
-        // Trinh duyet co the chan autoplay; giu nguyen nut de user bam tay.
-        isPlaying = false;
-        toggleBtn.innerText = "▶";
-      });
+    isLoaderReady = true;
+    loader.classList.add("is-ready");
+    startStoryBtn.disabled = false;
+    loaderStatus.innerText = "Mọi thứ đã sẵn sàng. Bấm để bắt đầu câu chuyện.";
   });
+}
+
+function beginStory() {
+  if (!isLoaderReady) {
+    return;
+  }
+
+  document.body.classList.remove("is-loading");
+  reveal();
+
+  audio.play()
+    .then(() => {
+      isPlaying = true;
+      toggleBtn.innerText = "⏸";
+    })
+    .catch(() => {
+      isPlaying = false;
+      toggleBtn.innerText = "▶";
+    });
 }
 
 function toggleAudio() {
@@ -151,6 +164,7 @@ audio.addEventListener("pause", () => {
 
 toggleBtn.addEventListener("click", toggleAudio);
 playBtn.addEventListener("click", toggleAudio);
+startStoryBtn.addEventListener("click", beginStory);
 showPageWhenReady();
 
 function openLightbox(src, alt) {
