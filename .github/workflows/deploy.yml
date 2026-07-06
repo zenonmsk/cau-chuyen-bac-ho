@@ -27,6 +27,14 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: Validate site files
+        run: |
+          test -d assets
+          test -f index.html
+          test -f script.js
+          test -f style.css
+          test -f .nojekyll
+
       - name: Prepare site artifact
         run: |
           mkdir -p _site
