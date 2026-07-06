@@ -139,8 +139,9 @@ body:not(.is-loading) .loader {
 }
 
 .site-header {
+  width: min(940px, calc(100% -40px));
   max-width: 940px;
-  margin: 40px auto 24px;
+  margin: 40px auto 8px;
   padding: 28px 24px 34px;
   text-align: center;
   border: 2px solid var(--line);
@@ -407,7 +408,9 @@ body.is-loading .fade-up {
   }
 
   .site-header {
+    width: calc(100% - 40px);
     margin-top: 26px;
+    padding: 12px 10px;
   }
 
   .tagline {
