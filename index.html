@@ -27,7 +27,7 @@
         <main>
             <section class="hero reveal">
                 <div class="frame">
-                    <img src="assets/infographic.png" class="hero-img" alt="Infographic hanh trinh tu hoc" />
+                    <img src="assets/infographic.png" class="hero-img zoomable" alt="Infographic hanh trinh tu hoc" />
                 </div>
                 <div class="hero-note">
                     <p>
@@ -48,7 +48,7 @@
                 <article class="story-card">
                     <h2>2. Kiên trì</h2>
                     <p>
-                        Không nóng với kết quả. Mỗi ngày tiến một bước, dù chậm nhưng chắc.
+                        Không nóng vội kết quả. Mỗi ngày tiến một bước, dù chậm nhưng chắc.
                         Thành công là tổng hòa của nhiều ngày nỗ lực.
                     </p>
                 </article>
@@ -69,16 +69,19 @@
             </section>
         </main>
 
-        <footer class="site-footer reveal">
-            <p>Hành trình tự học - Truyền cảm hứng bởi giá trị truyền thống và tinh thần vươn lên</p>
-        </footer>
-
         <div class="audio-player">
             <button id="toggleAudio" aria-label="Bat tat am thanh">▶</button>
         </div>
 
         <audio id="audio" src="assets/audio.mp3" preload="auto"></audio>
 
+    </div>
+
+    <div id="imageLightbox" class="lightbox" aria-hidden="true" role="dialog" aria-label="Xem anh toan man hinh">
+        <button id="closeLightbox" class="lightbox-close" aria-label="Dong">✕</button>
+        <div id="lightboxStage" class="lightbox-stage">
+            <img id="lightboxImage" class="lightbox-image" src="" alt="Anh phong to" />
+        </div>
     </div>
 
     <script src="script.js"></script>
