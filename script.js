@@ -51,7 +51,13 @@ function resetLightboxZoom() {
 }
 
 function waitForImages() {
-  const images = Array.from(document.querySelectorAll("img"));
+  const images = Array.from(document.querySelectorAll("img")).filter(img => {
+    if (img.dataset.skipPreload === "true") {
+      return false;
+    }
+
+    return Boolean(img.getAttribute("src"));
+  });
 
   return Promise.all(
     images.map(img => {
